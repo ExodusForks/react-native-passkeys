@@ -1,5 +1,11 @@
 # react-native-passkeys
 
+## 0.3.3-exodus.10
+
+### Fixed
+
+- Preserve Android Credential Manager exception classes and up to five cause classes on JavaScript errors without copying native cause messages.
+
 ## 0.3.2
 
 ### Patch Changes

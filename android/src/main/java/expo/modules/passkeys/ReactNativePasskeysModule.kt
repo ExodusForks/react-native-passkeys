@@ -80,7 +80,7 @@ class ReactNativePasskeysModule internal constructor(private val context: ReactA
           promise.resolve(Arguments.makeNativeMap(responseMap))
         }
       } catch (e: CreateCredentialException) {
-        promise.reject("Passkey Create", getRegistrationException(e), e)
+        promise.reject("Passkey Create", getRegistrationException(e), e, getExceptionUserInfo(e))
       }
     }
   }
@@ -107,9 +107,13 @@ class ReactNativePasskeysModule internal constructor(private val context: ReactA
           promise.resolve(Arguments.makeNativeMap(responseMap))
         }
       } catch (e: GetCredentialException) {
-        promise.reject("Passkey Get", getAuthenticationException(e), e)
+        promise.reject("Passkey Get", getAuthenticationException(e), e, getExceptionUserInfo(e))
       }
     }
+  }
+
+  private fun getExceptionUserInfo(error: Throwable) = Arguments.createMap().apply {
+    putArray("nativeExceptionClasses", Arguments.fromList(nativeExceptionClasses(error)))
   }
 
   private fun getRegistrationException(e: CreateCredentialException): String {
